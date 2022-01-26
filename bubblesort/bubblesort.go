@@ -31,7 +31,7 @@ the contents of the slice in position i with the contents in position i+1.
 */
 
 func main() {
-    fmt.Print("Please enter a sequence of up to 10 integers: ")
+    fmt.Print("Enter a sequence of up to 10 integers, separated by spaces: ")
     r := bufio.NewReader(os.Stdin)
 	line, err := r.ReadString('\n')
 	if err != nil {
