@@ -30,12 +30,6 @@ indicates a position in the slice. The Swap() function should return nothing, bu
 the contents of the slice in position i with the contents in position i+1.
 */
 
-const (
-    format = "%d %d %d %d %d %d %d %d %d %d"
-)
-
-    // mySlice := make([]int, 10)
-
 func main() {
     fmt.Print("Please enter a sequence of up to 10 integers: ")
     r := bufio.NewReader(os.Stdin)
@@ -43,7 +37,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-    fmt.Println(line)
 
     // split the line into separate components
     fields := strings.Fields(line)
@@ -51,15 +44,41 @@ func main() {
         log.Fatal("Too many arguments")
     }
 
-    ints := make([]int, len(fields))
+    sliceOfInts := make([]int, len(fields))
 
     for i, f := range fields {
-		ints[i], err = strconv.Atoi(f)
+		sliceOfInts[i], err = strconv.Atoi(f)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
 
-    fmt.Println(ints)
+    fmt.Println("Before sort: ", sliceOfInts)
+    BubbleSort(sliceOfInts)
+    fmt.Println("After sort: ", sliceOfInts)
 
+}
+
+func BubbleSort(sliceOfInts []int) {
+    // Perform Bubble Sort on the slice of integers.
+    // Repeatedly Swap adjacent elements if they are not in order.
+    // The algorithm needs one whole pass without any swap to know that sorting is complete
+    for {
+        numOfSwaps := 0
+        for i := 0; i < len(sliceOfInts) - 1 ; i++ {
+            if sliceOfInts[i] > sliceOfInts[i+1] {
+                Swap(sliceOfInts, i)
+                numOfSwaps++
+            }
+        }
+        if numOfSwaps == 0 {
+            break
+        }
+    }
+}
+
+func Swap(sliceOfInts []int, i int) {
+    temp := sliceOfInts[i]
+    sliceOfInts[i] = sliceOfInts[i+1]
+    sliceOfInts[i+1] = temp
 }
